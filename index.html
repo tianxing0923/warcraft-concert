@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="author" content="erictian">
+    <meta name="description" content="亡灵序曲响彻艾泽拉斯，青春等你开撕！">
+    <title>亡灵序曲响彻艾泽拉斯，青春等你开撕！</title>
+    <!-- build:inlinecss -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- endbuild -->
+</head>
+<body>
+    <div id="container" class="container">
+        <img class="bg" src="images/bg.jpg">
+        <div id="video_wrap" class="video"></div>
+        <a class="lnk" href="http://fun.yy.com/html/publish/1606/329856381437.html?from=singlemessage&isappinstalled=0"></a>
+    </div>
+    <div id="music" class="music ne playing">
+        <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 64 64">
+            <path d="M32.01 15.02c-9.39 0-17 7.61-17 17 0 9.388 7.61 17 17 17s17-7.612 17-17c0-9.39-7.612-17-17-17zm0 32c-8.285 0-15-6.716-15-15 0-8.284 6.715-15 15-15 8.283 0 15 6.716 15 15 0 8.284-6.717 15-15 15zm7.144-24.97c-.052-.007-.1-.03-.154-.03-.147 0-.284.035-.41.092l-9.677 1.88c-.082.016-.152.058-.227.092-.046.015-.09.032-.132.053-.017.01-.032.02-.048.033-.226.132-.388.344-.456.604-.004.012-.004.024-.007.036-.016.07-.043.135-.043.21v9.142c-1.057-.296-2.376-.125-3.584.58-2.02 1.182-2.95 3.384-2.074 4.917.875 1.534 3.223 1.82 5.242.64 1.646-.963 2.548-2.598 2.36-4.002.026-.09.056-.18.056-.28V25.815l8-1.554v7.902c-1.057-.296-2.376-.125-3.584.58-2.02 1.182-2.95 3.384-2.074 4.917.875 1.534 3.223 1.82 5.242.64 1.646-.963 2.548-2.598 2.36-4.002.026-.09.056-.18.056-.28v-11c0-.018-.01-.035-.01-.054 0-.037.014-.073.01-.11-.04-.467-.4-.78-.846-.803zM26.528 38.448c-1.01.59-2.065.654-2.357.143-.29-.512.292-1.405 1.303-1.996 1.01-.59 2.065-.654 2.356-.143.29.514-.292 1.406-1.302 1.997zm10-2c-1.01.59-2.065.654-2.357.143-.29-.512.292-1.405 1.303-1.996 1.01-.59 2.065-.654 2.356-.143.29.514-.292 1.406-1.302 1.997z"></path>
+        </svg>
+        <span style="background-color:#fff"></span>
+    </div>
+    <audio id="audio_bgm" src="" loop style="display:none"></audio>
+    <!-- build:zeptojs js/zepto.js -->
+    <script src="js/zepto/zepto.js"></script>
+    <script src="js/zepto/ajax.js"></script>
+    <script src="js/zepto/event.js"></script>
+    <!-- endbuild -->
+    <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        var $container = $('#container');
+
+        var audio_bgm = document.getElementById('audio_bgm');
+            audio_bgm.src = 'bgm.mp3';
+            audio_bgm.play();
+
+        $(document).on('touchstart', function() {
+            $(document).off('touchstart');
+            audio_bgm.play();
+        });
+        $('#audio_bgm').on('play', function() {
+            $('#music').addClass('playing')
+        });
+        $('#audio_bgm').on('pause', function() {
+            $('#music').removeClass('playing')
+        });
+        $('#music').on('click', function(a) {
+            var $this = $(this);
+            $this.hasClass('playing') ? audio_bgm.pause() : audio_bgm.play();
+        });
+
+        $container.on('click', '.video', function (e) {
+            if ($('#video').length > 0) {
+                return;
+            }
+            var $video = $('<video id="video" src="video.mp4" controls></video>');
+            $('#video_wrap').append($video);
+            $video[0].play();
+            audio_bgm.pause();
+        });
+
+        // 分享参数
+        var SHARE_OBJ = {
+            title: '亡灵序曲响彻艾泽拉斯，青春等你开撕！',
+            desc: '6月16日19:00YY直播魔兽音乐会准时大波老司机开车',
+            link: location.href,
+            imgUrl: 'http://h5.html5dw.com/warcraft-concert/images/thumbnail.jpg',
+            success: function () { }
+        };
+
+        wx.config({
+            debug: false,
+            appId: "wxc277cec6a0f458d9",
+            timestamp: "1466235397",
+            nonceStr: "TJvtBOut5UEM6man",
+            signature: "fb0f29a3d679b981d1bb180e330ec21b1642c2ee",
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']
+        });
+
+        wx.ready(function () {
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(SHARE_OBJ);
+            // 分享给朋友
+            wx.onMenuShareAppMessage(SHARE_OBJ);
+            // 分享到QQ
+            wx.onMenuShareQQ(SHARE_OBJ);
+            // 分享到腾讯微博
+            wx.onMenuShareWeibo(SHARE_OBJ);
+            // 分享到QQ空间
+            wx.onMenuShareQZone(SHARE_OBJ);
+        });
+    </script>
+</body>
+</html>
